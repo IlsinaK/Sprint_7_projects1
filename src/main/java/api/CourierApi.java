@@ -3,7 +3,6 @@ package api;
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import model.CourierDataLombok;
-
 import static io.restassured.RestAssured.given;
 
 public class CourierApi extends RestApi {
@@ -28,7 +27,22 @@ public class CourierApi extends RestApi {
                 .spec(requestSpecification())
                 .body(courier)
                 .when()
+                .post(LOGIN_COURIER_URI)
+                .then();
     }
+
+    @Step("Delete courier")
+    public ValidatableResponse deleteCourier (int courierId) {
+        return given()
+                .spec(requestSpecification())
+                .when()
+                .delete(DELETE_COURIER_URI, courierId) // Используем ID курьера
+                .then();
+    }
+
 }
+
+
+
 
 
